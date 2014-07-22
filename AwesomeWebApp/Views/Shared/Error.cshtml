@@ -1,0 +1,44 @@
+﻿@using System.Diagnostics
+@model HandleErrorInfo
+@{
+    Layout = "_Layout.cshtml";
+    ViewBag.Title = "Error";
+}
+
+<div class="well-lg panel-warning">
+    <h1>Error</h1>
+    <p class="lead">
+        @if (Model == null)
+        {
+            <span>404 Not Found</span>
+            Trace.TraceWarning("Error - Not Found");
+        }
+        else
+        {
+            var httpException = Model.Exception as HttpException;
+
+            Trace.TraceError("Error - " + Model.Exception);
+
+            if (httpException != null)
+            {
+                 @httpException.GetHttpCode()
+            }
+        }
+    </p>
+
+    @if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+    {
+        <div>
+            <p>
+                <b>Exception:</b> @Model.Exception.Message<br />
+                <b>Controller:</b> @Model.ControllerName<br />
+                <b>Action:</b> @Model.ActionName
+            </p>
+            <div style="overflow:scroll">
+                <pre>
+@Model.Exception.StackTrace
+                </pre>
+            </div>
+        </div>
+    }
+</div>

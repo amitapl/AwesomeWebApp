@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Azure Websites</h1>
+    <p class="lead">Awesome Web App is running on Azure Websites.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4 text-center">
+        <p><a class="btn btn-lg btn-danger" href="~/ProduceError/500">500 Error</a></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <p><a class="btn btn-lg btn-warning" href="~/ProduceError/404">404 Not Found</a></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <p><div class="btn btn-lg btn-success" id="logsButton">Produce Logs</div></p>
+    </div>
+</div>
+
+@section scripts {
+<script>
+    $(function() {
+        $("#logsButton").click(function() {
+            $.get("@Url.Action("ProduceLogs", "Home")");
+        });
+    });
+</script>
+}
