@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -13,7 +13,12 @@ namespace AwesomeWebApp.Controllers
         public ActionResult Index()
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            Response.Cache.SetNoServerCaching();
             Response.Cache.SetNoStore();
+            Response.Cache.SetProxyMaxAge(TimeSpan.FromSeconds(0));
+            Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+            Response.Cache.SetValidUntilExpires(false);
            
             return View();
         }
