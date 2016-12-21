@@ -12,8 +12,8 @@ namespace AwesomeWebApp.Controllers
 
         public ActionResult Index()
         {
-            controller.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            controller.Response.Cache.SetNoStore();
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
            
             return View();
         }
